@@ -211,8 +211,6 @@ function renderPageBtns() {
       </a>
   </li>`;
 
-  console.log('strHTML', strHTML);
-
   document.querySelector('.paging').innerHTML += strHTML;
 }
 
