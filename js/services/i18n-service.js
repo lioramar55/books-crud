@@ -93,6 +93,10 @@ function getTrans(transKey) {
   return txt;
 }
 
+function getCurrLang() {
+  return gCurrLang;
+}
+
 function doTrans() {
   var els = document.querySelectorAll('[data-trans]');
   els.forEach((el) => {

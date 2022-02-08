@@ -76,7 +76,8 @@ function removeBook(idx) {
 }
 
 function sortCol(sortBy) {
-  if (sortBy.toLowerCase() === 'name') {
+  var nSortBy = getCurrLang() === 'en' ? sortBy.toLowerCase() : sortBy;
+  if (nSortBy === 'name' || nSortBy === 'שם הספר') {
     if (gSortBy === sortBy) gIsAscending = -1 * gIsAscending;
     gBooks.sort((a, b) =>
       a.name.toUpperCase() > b.name.toUpperCase()
@@ -86,23 +87,41 @@ function sortCol(sortBy) {
         : 0
     );
   } else {
-    switch (sortBy.toLowerCase()) {
+    if (gSortBy === sortBy) gIsAscending = -1 * gIsAscending;
+    switch (nSortBy) {
       case 'id':
-        if (gSortBy === sortBy) gIsAscending = -1 * gIsAscending;
-        gBooks.sort((a, b) => gIsAscending * (a.id - b.id));
+        sortById();
+        break;
+      case 'מזהה':
+        sortById();
         break;
       case 'rate':
-        if (gSortBy === sortBy) gIsAscending = -1 * gIsAscending;
-        gBooks.sort((a, b) => gIsAscending * (b.rate - a.rate));
+        sortByRate();
+        break;
+      case 'דירוג':
+        sortByRate();
         break;
       case 'price':
-        if (gSortBy === sortBy) gIsAscending = -1 * gIsAscending;
-        gBooks.sort((a, b) => gIsAscending * (b.price - a.price));
+        sortByPrice();
+        break;
+      case 'מחיר':
+        sortByPrice();
         break;
     }
   }
   gSortBy = sortBy;
   saveToStorage(STORAGE_KEY, gBooks);
+}
+
+function sortById() {
+  gBooks.sort((a, b) => gIsAscending * (a.id - b.id));
+}
+
+function sortByRate() {
+  gBooks.sort((a, b) => gIsAscending * (b.rate - a.rate));
+}
+function sortByPrice() {
+  gBooks.sort((a, b) => gIsAscending * (b.price - a.price));
 }
 
 function getBooks() {

@@ -108,6 +108,7 @@ function onSortCol(elTd) {
 
 function onSetLang() {
   var isEnglish = this.classList.contains('en') ? 'en' : 'he';
+
   setLang(isEnglish);
   if (isEnglish === 'he') {
     document.body.style.direction = 'rtl';
