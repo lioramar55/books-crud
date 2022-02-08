@@ -3,8 +3,11 @@
 function onInit() {
   renderBooks();
   renderPageBtns();
+  document.querySelector('.en').onclick = onSetLang;
+  document.querySelector('.he').onclick = onSetLang;
 }
 
+// Book Render To HTML
 function renderBooks() {
   var books = getBooks();
   if (!books) {
@@ -15,10 +18,10 @@ function renderBooks() {
   var strHTMLs = '';
   for (var key in books[0]) {
     if (key === 'imgUrl') continue;
-    strTHEAD += `<td onclick="onSortCol(this)">
-    ${key}</td>`;
+    strTHEAD += `<td data-trans="${key}-book" onclick="onSortCol(this)">
+    ${getTrans(key + '-book')}</td>`;
   }
-  strTHEAD += '<td>actions</td></tr>';
+  strTHEAD += '<td data-trans="actions-book">actions</td></tr>';
 
   strHTMLs = books.map((book, idx) => {
     var strHTML = '<tr>';
@@ -36,6 +39,7 @@ function renderBooks() {
   document.querySelector('table tbody').innerHTML = strHTMLs.join('');
 }
 
+// helper function to create html for a td element
 function createActionBtns(idx) {
   const btnClasses = { read: 'btn-read', update: 'btn-update', remove: 'btn-remove' };
   const btnText = { read: 'Read', update: 'Update', remove: 'Remove' };
@@ -100,6 +104,14 @@ function onSortCol(elTd) {
   renderBooks();
 }
 
+// Language Support
+
+function onSetLang() {
+  var isEnglish = this.classList.contains('en') ? 'en' : 'he';
+  setLang(isEnglish);
+  doTrans();
+}
+
 // UPDATE / ADD
 
 function handleChange(ev, action, idx) {
@@ -127,10 +139,11 @@ function toggleModal(modal) {
 
 function renderModal(elIdx, idx) {
   const onSubmitFunctions = [`handleChange(event, 'add')`, `handleChange(event,'update', ${idx})`];
-  const headers = ['Add New Book', `Update Book`];
+  const modalType = ['add-modal-title', 'update-modal-title'];
+  var header = getTrans(modalType[idx]);
   var strHTML = `
     <button class="close-btn" onclick="toggleAddBookSection()">X</button>
-    <h2>${headers[elIdx]}</h2>
+    <h2 data-lang="center-modal-title">${header}</h2>
     <form class="add-book" onsubmit="${onSubmitFunctions[elIdx]}">
         <label for="title">New Title </label>
         <input type="text" placeholder="New Title" name="title" />

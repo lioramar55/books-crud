@@ -10,8 +10,10 @@
   <body onload="onInit()">
     <div class="container">
       <header>
-        <h1>Lior's Book Shop</h1>
-        <button class="btn btn-create" onclick="renderModal(0,0)">Add Book</button>
+        <h1 data-trans="title">Lior's Book Shop</h1>
+        <button class="btn btn-create" onclick="renderModal(0,0)" data-trans="add-book">
+          Add Book
+        </button>
       </header>
       <div class="add-book-modal"></div>
 
@@ -34,12 +36,23 @@
           <input min="0" max="10" value="0" type="number" />
         </label>
         <button class="increase" onclick="onRate(true)">+</button>
-        <button onclick="onRateSubmit()" class="btn">Rate</button>
+        <button onclick="onRateSubmit()" class="btn" data-trans="rate">Rate</button>
       </section>
+      <div class="lang">
+        <div class="en">
+          <h5>English</h5>
+          <img src="assets/imgs/en.png" />
+        </div>
+        <div class="he">
+          <h5>עברית</h5>
+          <img src="assets/imgs/he.png" />
+        </div>
+      </div>
       <div class="paging"></div>
     </div>
 
     <script src="js/services/utils.services.js"></script>
+    <script src="js/services/i18n-service.js"></script>
     <script src="js/services/storage.services.js"></script>
     <script src="js/services/books.services.js"></script>
     <script src="js/controller.js"></script>
