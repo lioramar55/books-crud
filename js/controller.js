@@ -21,7 +21,7 @@ function renderBooks() {
     strTHEAD += `<td data-trans="${key}-book" onclick="onSortCol(this)">
     ${getTrans(key + '-book')}</td>`;
   }
-  strTHEAD += '<td data-trans="actions-book">actions</td></tr>';
+  strTHEAD += `<td data-trans="actions-book">${getTrans('actions-book')}</td></tr>`;
 
   strHTMLs = books.map((book, idx) => {
     var strHTML = '<tr>';
@@ -42,10 +42,13 @@ function renderBooks() {
 // helper function to create html for a td element
 function createActionBtns(idx) {
   const btnClasses = { read: 'btn-read', update: 'btn-update', remove: 'btn-remove' };
-  const btnText = { read: 'Read', update: 'Update', remove: 'Remove' };
   var strHTML = '<td>';
-  for (var key in btnText) {
-    strHTML += `<button data-trans="${btnClasses[key]}" onclick="actionHandler('${key}', ${idx})" class="btn ${btnClasses[key]}">${btnText[key]}</button>`;
+  for (var key in btnClasses) {
+    strHTML += `<button data-trans="${btnClasses[key]}" 
+    onclick="actionHandler('${key}', ${idx})"
+     class="btn ${btnClasses[key]}">
+    ${getTrans(btnClasses[key])}
+    </button>`;
   }
   strHTML += '</td>';
   return strHTML;
