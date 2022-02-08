@@ -65,7 +65,7 @@ function updateBook(idx, newName, newPrice, newImg) {
 
 function addBook(name, price) {
   var book = _createBook(name, price);
-  gBooks.push(book);
+  gBooks.unshift(book);
   saveToStorage(STORAGE_KEY, gBooks);
 }
 
@@ -163,7 +163,7 @@ function _createBooks() {
 
 function _createBook(name, price, imgUrl, id) {
   return {
-    id: id,
+    id: id ? id : gBooks.length + 1,
     rate: 0,
     name,
     price,

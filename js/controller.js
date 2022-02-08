@@ -18,17 +18,20 @@ function renderBooks() {
   var strHTMLs = '';
   for (var key in books[0]) {
     if (key === 'imgUrl') continue;
-    strTHEAD += `<td data-trans="${key}-book" onclick="onSortCol(this)">
+    strTHEAD += `<td data-trans="${key}-book" 
+     scope="col" onclick="onSortCol(this)">
     ${getTrans(key + '-book')}</td>`;
   }
-  strTHEAD += `<td data-trans="actions-book">${getTrans('actions-book')}</td></tr>`;
+  strTHEAD += `<td scope="col" data-trans="actions-book">${getTrans('actions-book')}</td></tr>`;
 
   strHTMLs = books.map((book, idx) => {
-    var strHTML = '<tr>';
+    var strHTML = '<tr class="table-dark">';
     for (var key in book) {
       if (key === 'imgUrl') continue;
-      if (key === 'price') strHTML += `<td>${getPrice(book[key])}</td>`;
-      else strHTML += `<td>${book[key]}</td>`;
+      if (key === 'price') strHTML += `<td class="table-dark">${getPrice(book[key])}</td>`;
+      else if (key === 'id') {
+        strHTML += `<th class="table-dark">${book[key]}</th>`;
+      } else strHTML += `<td class="table-dark">${book[key]}</td>`;
     }
     strHTML += createActionBtns(idx);
     strHTML += '</tr>';
@@ -41,13 +44,22 @@ function renderBooks() {
 
 // helper function to create html for a td element
 function createActionBtns(idx) {
-  const btnClasses = { read: 'btn-read', update: 'btn-update', remove: 'btn-remove' };
-  var strHTML = '<td>';
-  for (var key in btnClasses) {
-    strHTML += `<button data-trans="${btnClasses[key]}" 
+  const btnText = {
+    read: 'btn-read',
+    update: 'btn-update',
+    remove: 'btn-remove',
+  };
+  const btnClasses = {
+    read: 'btn-read btn-primary',
+    update: 'btn-update btn-success',
+    remove: 'btn-remove btn-danger',
+  };
+  var strHTML = '<td class="table-dark">';
+  for (var key in btnText) {
+    strHTML += `<button data-trans="${btnText[key]}" 
     onclick="actionHandler('${key}', ${idx})"
      class="btn ${btnClasses[key]}">
-    ${getTrans(btnClasses[key])}
+    ${getTrans(btnText[key])}
     </button>`;
   }
   strHTML += '</td>';
@@ -87,13 +99,14 @@ function onReadBook(idx) {
 
 function onRate(isPlus) {
   var rateValue = parseInt(document.querySelector('input[type="number"]').value);
-  if (isPlus) rateValue++;
-  else rateValue--;
+  if (isPlus && rateValue < 10) rateValue++;
+  if (!isPlus && rateValue > 0) rateValue--;
   document.querySelector('input[type="number"]').value = rateValue;
 }
 
 function onRateSubmit() {
   var rate = document.querySelector('input[type="number"]');
+  if (rate.value > 10 || rate.value < 0) return;
   updateBookRating(rate.value);
   document.querySelector('.book-modal h4').innerText = 'Rating: ' + rate.value;
   rate.value = 0;
@@ -127,13 +140,13 @@ function handleChange(ev, action, idx) {
   ev.preventDefault();
   var name = ev.target.title.value;
   var price = ev.target.price.value;
-  ev.target.title.value = '';
-  ev.target.price.value = '';
 
   if (action === 'add') addBook(name, price);
   else updateBook(idx, name, price);
   renderBooks();
   toggleAddBookSection();
+  ev.target.title.value = '';
+  ev.target.price.value = '';
 }
 
 // UPDATE & ADD MODAL
@@ -177,21 +190,28 @@ function renderPageBtns() {
   document.querySelector('.paging').innerHTML = '';
   var currPage = getPageIdx() + 1;
   var totalPages = getTotalPages();
-  var strHTML = '';
-
-  strHTML += `<button ${
-    getPageIdx() === 0 ? 'disabled' : ''
-  } onclick="onSetPage(this, 'prev')" class="page-btn">\<\<</button>`;
+  var strHTML = `    
+  <li class="page-item ${getPageIdx() === 0 ? 'disabled' : ''}">
+      <a onclick="onSetPage(this, 'prev')" class="page-link "  aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+  </li>`;
 
   for (var i = getPageIdx() - 1; i < getPageIdx() + 2 && currPage <= totalPages; i++) {
-    strHTML += `<button ${
-      currPage - 1 === getPageIdx() ? 'disabled' : ''
-    }  class="page-btn" onclick="onSetPage(this)">${currPage++}</button>`;
+    strHTML += `
+    <li class="page-item ${currPage - 1 === getPageIdx() ? 'active' : ''}">
+    <span onclick="onSetPage(this)" class="page-link ">${currPage++}</span>
+    </li>`;
   }
 
-  strHTML += `<button ${
-    getPageIdx() + 1 === totalPages ? 'disabled' : ''
-  } onclick="onSetPage(this, 'next')" class="page-btn">\>\></button>`;
+  strHTML += `    
+  <li class="page-item ${getPageIdx() + 1 === totalPages ? 'disabled' : ''}">
+      <a onclick="onSetPage(this, 'next')" class="page-link "  aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+  </li>`;
+
+  console.log('strHTML', strHTML);
 
   document.querySelector('.paging').innerHTML += strHTML;
 }

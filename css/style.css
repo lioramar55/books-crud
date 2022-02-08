@@ -9,49 +9,36 @@
 body {
   font-size: 16px;
   text-align: center;
-  background: linear-gradient(
-    to right,
-    #abbaab,
-    #ffffff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.rtl {
-  direction: rtl;
 }
 
 .btn {
-  border: 0;
   color: #111;
   cursor: pointer;
-  padding: 0.5em;
   font-weight: 600;
-  margin: 0 0.5em;
+  margin: 0.25rem 0.5rem;
   text-transform: uppercase;
 }
 
 /* Header */
 
 header {
-  margin: 4em;
+  margin: 1em;
 }
 
 /*Main Container*/
 
 .books-display {
-  /* width: 30em; */
   margin: 0 auto;
   display: flex;
   justify-content: center;
 }
 
-table {
-  border-collapse: collapse;
-  text-align: center;
+tr {
+  vertical-align: middle;
 }
 
 table thead {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   background-color: whitesmoke;
   text-transform: capitalize;
 }
@@ -59,12 +46,10 @@ table thead {
 thead td {
   cursor: pointer;
 }
-thead td:hover {
-  background-color: #333;
-}
 
-td {
-  border: 0.1rem solid #111;
+thead td:hover {
+  background-color: rgb(156, 156, 156);
+  color: #222;
 }
 
 /* book images */
@@ -80,8 +65,8 @@ img {
   position: absolute;
   display: flex;
   gap: 2.5vh;
-  top: 1vh;
-  right: 2vh;
+  top: 1vw;
+  left: 1vw;
 }
 
 .lang div {
@@ -102,11 +87,7 @@ img {
   position: fixed;
   left: -150vw;
   padding: 4rem;
-  background: linear-gradient(
-    to right,
-    #141e30,
-    #243b55
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #0c0e13, #0a131d);
   box-shadow: 5px 5px 15px 5px #000000;
   transition: opacity 0.5s;
 }
@@ -135,24 +116,21 @@ img {
 }
 
 .add-book button:hover {
-  background-color: #888;
+  color: #aaa;
+  background-color: #293449;
 }
 
 /* Read Book Modal */
 
 .book-modal {
   box-shadow: 9px 5px 15px 5px rgba(0, 0, 0, 0.84);
-  padding: 1em;
+  padding: 2rem;
   position: fixed;
   width: 20em;
   color: whitesmoke;
-  background: linear-gradient(
-    to right,
-    #00b4db,
-    #0083b0
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #0c0e13, #0a131d);
   right: -200vw;
-  transition: right top 0.5s;
+  transition: right 0.5s;
 }
 
 .close-btn {
@@ -163,7 +141,7 @@ img {
 }
 
 .book-modal input[type='number'] {
-  width: 10%;
+  width: 1.5rem;
 }
 
 /* buttons classes */
@@ -176,37 +154,13 @@ img {
   cursor: pointer;
 }
 
-.btn-create {
-  background-color: greenyellow;
-}
-
-.btn-read {
-  background-color: cyan;
-}
-
-.btn-remove {
-  background-color: red;
-}
-
-.btn-update {
-  background-color: yellow;
-}
-
-.page-btn {
-  margin-top: 0.5em;
-  cursor: pointer;
-}
-
 button:disabled {
   background-color: lightgrey;
   cursor: default;
 }
 
-/* Hide input default buttons Chrome, Safari, Edge, Opera */
-.book-modal input::-webkit-outer-spin-button,
-.book-modal input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.page-item {
+  cursor: pointer;
 }
 
 /* utility classed */
@@ -214,4 +168,11 @@ button:disabled {
 .show {
   top: 2em;
   right: 2em;
+}
+
+/* Hide input default buttons Chrome, Safari, Edge, Opera */
+.book-modal input::-webkit-outer-spin-button,
+.book-modal input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
