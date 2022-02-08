@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,52 +45,3 @@
     <script src="js/controller.js"></script>
   </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Book Shop</title>
-  </head>
-  <body onload="onInit()">
-    <div class="container">
-      <header>
-        <h1>Welcome To My Book Shop</h1>
-        <button class="btn btn-create" onclick="renderModal(0,0)">Add Book</button>
-      </header>
-      <div class="add-book-modal"></div>
-
-      <section class="books-display">
-        <table>
-          <thead></thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
-      <section onsubmit="onRateSubmit(event)" class="book-modal">
-        <button class="close-btn" onclick="toggleModal()">X</button>
-        <h2></h2>
-        <h3></h3>
-        <h4></h4>
-        <img src="" alt="book-cover-image" />
-        <p></p>
-        <button class="decrease" onclick="onRate(false)">-</button>
-        <label for="rate">
-          <input min="0" max="10" value="0" type="number" />
-        </label>
-        <button class="increase" onclick="onRate(true)">+</button>
-        <button onclick="onRateSubmit()" class="btn">Rate</button>
-      </section>
-      <div class="paging"></div>
-    </div>
-
-    <script src="js/services/utils.services.js"></script>
-    <script src="js/services/storage.services.js"></script>
-    <script src="js/services/books.services.js"></script>
-    <script src="js/controller.js"></script>
-  </body>
-</html>
->>>>>>> 97f87707a9da920f27e2415fb7c9356e9794344c
