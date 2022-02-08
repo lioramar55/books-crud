@@ -118,8 +118,8 @@ function formatNum(num) {
   return new Intl.NumberFormat(gCurrLang).format(num);
 }
 
-function formatCurrency(num) {
-  return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(num);
+function formatCurrency(num, locale, curr) {
+  return new Intl.NumberFormat(locale, { style: 'currency', currency: curr }).format(num);
 }
 
 function formatDate(time) {

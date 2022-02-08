@@ -27,7 +27,7 @@ function renderBooks() {
     var strHTML = '<tr>';
     for (var key in book) {
       if (key === 'imgUrl') continue;
-      if (key === 'price') strHTML += `<td>$${book[key]}</td>`;
+      if (key === 'price') strHTML += `<td>${getPrice(book[key])}</td>`;
       else strHTML += `<td>${book[key]}</td>`;
     }
     strHTML += createActionBtns(idx);
@@ -114,6 +114,8 @@ function onSetLang() {
     document.body.style.direction = 'rtl';
   } else document.body.style.direction = 'ltr';
   doTrans();
+
+  renderBooks();
 }
 
 // UPDATE / ADD

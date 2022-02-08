@@ -140,6 +140,13 @@ function getPageIdx() {
   return gPageIdx;
 }
 
+function getPrice(num) {
+  if (gCurrLang === 'en') num = num / 3.15;
+  var locale = gCurrLang === 'en' ? 'en-US' : 'he-IL';
+  var curr = gCurrLang === 'en' ? 'USD' : 'ILS';
+  return formatCurrency(num, locale, curr);
+}
+
 function _createBooks() {
   var books = loadFromStorage(STORAGE_KEY);
   var id = 1;
