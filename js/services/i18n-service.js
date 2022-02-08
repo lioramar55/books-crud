@@ -39,6 +39,46 @@ var gTrans = {
     en: 'Actions',
     he: 'פעולות',
   },
+  'btn-read': {
+    en: 'Read',
+    he: 'קרא',
+  },
+  'btn-update': {
+    en: 'Update',
+    he: 'עדכן',
+  },
+  'btn-remove': {
+    en: 'Remove',
+    he: 'מחק',
+  },
+  confirm: {
+    en: 'Are You SURE ?',
+    he: 'אתה בטוח שאתה רוצה למחוק את זה?',
+  },
+  'add-modal-btn': {
+    en: 'Add Book',
+    he: 'הוסף ספר',
+  },
+  'update-modal-btn': {
+    en: 'Updae Book',
+    he: 'עדכן ספר',
+  },
+  'modal-text': {
+    en: 'New Title',
+    he: 'כותרת חדשה',
+  },
+  'modal-price': {
+    en: 'New Price',
+    he: 'מחיר חדש',
+  },
+  'input-text': {
+    en: 'New title...',
+    he: 'כותרת חדשה...',
+  },
+  'input-price': {
+    en: 'Enter price...',
+    he: 'הכנס מחיר...',
+  },
 };
 
 var gCurrLang = 'en';
@@ -58,11 +98,7 @@ function doTrans() {
   els.forEach((el) => {
     var transKey = el.dataset.trans;
     var txt = getTrans(transKey);
-    if (el.nodeName === 'INPUT') {
-      // el.setAttribute('placeholder', txt)
-      //THE SAME!
-      el.placeholder = txt;
-    } else el.innerText = txt;
+    if (el.nodeName !== 'INPUT') el.innerText = txt;
   });
 }
 

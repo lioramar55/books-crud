@@ -45,7 +45,7 @@ function createActionBtns(idx) {
   const btnText = { read: 'Read', update: 'Update', remove: 'Remove' };
   var strHTML = '<td>';
   for (var key in btnText) {
-    strHTML += `<button onclick="actionHandler('${key}', ${idx})" class="btn ${btnClasses[key]}">${btnText[key]}</button>`;
+    strHTML += `<button data-trans="${btnClasses[key]}" onclick="actionHandler('${key}', ${idx})" class="btn ${btnClasses[key]}">${btnText[key]}</button>`;
   }
   strHTML += '</td>';
   return strHTML;
@@ -61,7 +61,7 @@ function actionHandler(action, idx) {
       renderModal(1, idx);
       break;
     case actions[2]:
-      if (confirm('Are you sure?')) removeBook(idx);
+      if (confirm(getTrans('confirm'))) removeBook(idx);
       renderBooks();
       break;
   }
@@ -109,6 +109,9 @@ function onSortCol(elTd) {
 function onSetLang() {
   var isEnglish = this.classList.contains('en') ? 'en' : 'he';
   setLang(isEnglish);
+  if (isEnglish === 'he') {
+    document.body.style.direction = 'rtl';
+  } else document.body.style.direction = 'ltr';
   doTrans();
 }
 
@@ -139,17 +142,24 @@ function toggleModal(modal) {
 
 function renderModal(elIdx, idx) {
   const onSubmitFunctions = [`handleChange(event, 'add')`, `handleChange(event,'update', ${idx})`];
-  const modalType = ['add-modal-title', 'update-modal-title'];
-  var header = getTrans(modalType[idx]);
+  const modalHeaders = ['add-modal-title', 'update-modal-title'];
+  const modalText = getTrans('modal-text');
+  const modalPriceTxt = getTrans('modal-price');
+  const modalBtnTxt = ['add-modal-btn', 'update-modal-btn'];
+  var header = getTrans(modalHeaders[elIdx]);
   var strHTML = `
     <button class="close-btn" onclick="toggleAddBookSection()">X</button>
     <h2 data-lang="center-modal-title">${header}</h2>
     <form class="add-book" onsubmit="${onSubmitFunctions[elIdx]}">
-        <label for="title">New Title </label>
-        <input type="text" placeholder="New Title" name="title" />
-        <label for="price">New Price </label>
-        <input type="number" placeholder="Enter price" name="price" />
-        <button type="submit" class="btn">Submit</button>
+        <label for="title">${modalText}</label>
+        <input data-trans="input-text" type="text" placeholder="${getTrans(
+          'input-text'
+        )}" name="title" />
+        <label for="price">${modalPriceTxt}</label>
+        <input data-trans="input-price" type="number" placeholder="${getTrans(
+          'input-price'
+        )}" name="price" />
+        <button type="submit" class="btn">${getTrans(modalBtnTxt[elIdx])}</button>
     </form>`;
   document.querySelector('.add-book-modal').innerHTML = strHTML;
   toggleAddBookSection();
